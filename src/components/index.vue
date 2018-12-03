@@ -3,20 +3,23 @@
   <div>
     <el-row>
       <el-col :span="4" :offset="16" class="bg">
-        <span class="num_tip">第一周</span>
+        <span class="num_tip">{{level}}</span>
       </el-col>
     </el-row>
     <el-row class="d">
       <el-col :span="16" :offset="4" class="beijing"></el-col>
     </el-row>
     <el-row class="b">
-      <el-col :span="6" :offset="9" class="start"></el-col>
+      <el-col :span="6" :offset="9">
+        <el-button v-on:click="jump" class="start"></el-button>
+      </el-col>
     </el-row>
   </div>
   </section>
 </template>
 
 <script>
+  import{ mapState} from'vuex'
   export default {
     name: 'index',
     data() {
@@ -24,6 +27,9 @@
 
         }
       },
+    computed:mapState([
+      'level'//第几周
+    ]),
       methods:{
       jump(){
         this.$router.push({path:'/page'})
@@ -58,7 +64,8 @@
     margin-top: -40px;
   }
   .start{
-    padding-top: 15%;
+    width: 25%;
+    padding-top: 10%;
     position: absolute;
     background: url("../assets/1-4.png") no-repeat;
     background-size: 100% 100%;
