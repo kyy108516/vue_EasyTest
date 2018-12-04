@@ -17,7 +17,8 @@
     </el-row>
     <el-row style="margin-top: 240px">
       <el-col :span="6" :offset="9">
-        <el-button v-on:click="jump" class="start"></el-button>
+        <el-button v-on:click="jump" class="start1" v-if="itemNum<itemDetail.length"></el-button>
+        <el-button v-on:click="jump" class="start2" v-else></el-button>
       </el-col>
     </el-row>
   </div>
@@ -30,7 +31,7 @@
         name: "page",
       data(){
           return{
-
+            choosedID:null,//选中答案ID
           }
       },
       computed:mapState([
@@ -87,11 +88,18 @@
     margin-left: 60px;
     margin-top: 30px;
   }
-  .start{
+  .start1{
     width: 25%;
     padding-top: 10%;
     position: absolute;
     background: url("../assets/2-2.png") no-repeat;
+    background-size: 100% 100%;
+  }
+  .start2{
+    width: 25%;
+    padding-top: 10%;
+    position: absolute;
+    background: url("../assets/3-1.png") no-repeat;
     background-size: 100% 100%;
   }
 </style>
