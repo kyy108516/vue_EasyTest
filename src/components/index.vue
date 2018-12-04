@@ -28,7 +28,8 @@
         }
       },
     computed:mapState([
-      'level'//第几周
+      'level',//第几周
+      'itemDetail' //题目
     ]),
       methods:{
       jump(){
