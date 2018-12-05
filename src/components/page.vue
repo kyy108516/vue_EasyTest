@@ -9,8 +9,8 @@
     <el-row class="ti_beijing">
       <el-col class="biaoti">{{itemDetail[itemNum-1].topic_name}}</el-col>
       <ul>
-        <li v-for="item in itemDetail[itemNum-1].topic_answer">
-          <span>{{item.topic_answer_id}}</span>
+        <li v-for="(item,index) in itemDetail[itemNum-1].topic_answer" @click="choosed(index,item.topic_answer_id)">
+          <span v-bind:class="{'has_choosed':choosedIndex===index}">{{item.topic_answer_id}}</span>
           <span>{{item.answer_name}}</span>
         </li>
       </ul>
@@ -26,18 +26,25 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
+  import {mapState,mapActions} from 'vuex'
     export default {
         name: "page",
       data(){
           return{
-            choosedID:null,//选中答案ID
+            choosedIndex:null,//选中答案下标
+            choosedID:null,//选中答案id
           }
       },
       computed:mapState([
         'itemNum',
         'itemDetail'
-      ])
+      ]),
+      methods:{
+          choosed(index,id){
+            this.choosedIndex=index;
+            this.choosedID=id;
+          }
+      }
     }
 </script>
 
@@ -101,5 +108,10 @@
     position: absolute;
     background: url("../assets/3-1.png") no-repeat;
     background-size: 100% 100%;
+  }
+  .has_choosed{
+    background-color: #ffd400;
+    color: #575757;
+    border-color: #ffd400;
   }
 </style>
