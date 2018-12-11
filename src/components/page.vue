@@ -10,15 +10,15 @@
       <el-col class="biaoti">{{itemDetail[itemNum-1].topic_name}}</el-col>
       <ul>
         <li v-for="(item,index) in itemDetail[itemNum-1].topic_answer" @click="choosed(index,item.topic_answer_id)">
-          <span v-bind:class="{'has_choosed':choosedIndex===index}">{{item.topic_answer_id}}</span>
+          <span v-bind:class="{'has_choosed':choosedIndex===index}">{{chooseType(index)}}</span>
           <span>{{item.answer_name}}</span>
         </li>
       </ul>
     </el-row>
     <el-row style="margin-top: 240px">
       <el-col :span="6" :offset="9">
-        <el-button v-on:click="jump" class="start1" v-if="itemNum<itemDetail.length"></el-button>
-        <el-button v-on:click="jump" class="start2" v-else></el-button>
+        <el-button v-on:click="nextItem" class="start1" v-if="itemNum<itemDetail.length"></el-button>
+        <el-button v-on:click="submitAnswer" class="start2" v-else></el-button>
       </el-col>
     </el-row>
   </div>
@@ -40,9 +40,36 @@
         'itemDetail'
       ]),
       methods:{
+          ...mapActions([
+            'addNum'
+          ]),
           choosed(index,id){
             this.choosedIndex=index;
             this.choosedID=id;
+          },
+        chooseType(type){
+            switch (type) {
+              case 0:return 'A';
+              case 1:return 'B';
+              case 2:return 'C';
+              case 3:return 'D';
+            }
+        },
+          nextItem(){
+            if (this.choosedIndex != null) {
+              this.choosedIndex=null;
+              this.addNum(this.choosedID)
+            }else {
+              window.alert("您还没有选择答案")
+            }
+          },
+          submitAnswer(){
+            if (this.choosedIndex!=null){
+              this.$router.push('score')
+            }
+            else {
+              window.alert("你还没有选择答案")
+            }
           }
       }
     }
